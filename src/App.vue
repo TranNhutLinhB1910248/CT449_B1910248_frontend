@@ -1,28 +1,52 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+  <v-app id="inspire">
+    <v-navigation-drawer v-model="drawer" app>
+      <v-list-item>
+        <v-list-item-content>
+          <v-list-item-title> Balo OUTLET </v-list-item-title>
+          <v-list-item-subtitle> MEVN </v-list-item-subtitle>
+        </v-list-item-content>
+      </v-list-item>
+      <v-divider></v-divider>
+      <v-list dense>
+        <v-list-item-group color="primary">
+          <v-list-item v-for="(item, i) in items" :key="i" :to="item.link" link>
+            <v-list-item-icon>
+              <v-icon v-text="item.icon"></v-icon>
+            </v-list-item-icon>
+            <v-list-item-content>
+              <v-list-item-title v-text="item.title"></v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+        </v-list-item-group>
+      </v-list>
+    </v-navigation-drawer>
+
+    <v-app-bar app>
+      <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
+
+      <v-toolbar-title>Quản trị viên</v-toolbar-title>
+    </v-app-bar>
+
+    <v-main>
+      <router-view></router-view>
+    </v-main>
+  </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
-}
+  data: () => ({
+    drawer: null,
+    items: [
+      { title: "Quản lý danh mục", icon: "mdi-book", link: "/list-category" },
+      { title: "Quản lý sản phẩm", icon: "mdi-note-plus", link: "/list-product" },
+      { title: "Quản lý nhân sự", icon: "mdi-account-multiple", link: "/list-user" },
+    ],
+  }),
+};
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+<style >
+
 </style>
